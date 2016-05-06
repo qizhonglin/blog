@@ -1,0 +1,35 @@
+entity Blog {
+    name String required,
+    handle String required
+}
+
+entity Tag {
+	name String required minlength(2)
+}
+paginate Tag with infinite-scroll
+
+entity Entry {
+	title String required,
+    content String required maxlength(1024),
+    date ZonedDateTime required
+}
+paginate Entry with infinite-scroll
+
+relationship ManyToOne {
+	Blog{user(login)} to User
+}
+
+relationship ManyToOne {
+	Entry{blog(name)} to Blog
+}
+
+relationship ManyToMany {
+	Entry{tag(name)} to Tag{entry}
+}
+
+
+
+
+
+
+	
